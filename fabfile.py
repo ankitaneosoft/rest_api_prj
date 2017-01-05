@@ -13,10 +13,13 @@ def deploy():
 		if run("test -d %s" % code_dir).failed:
 			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
 	with cd(code_dir):
-		run("git pull origin master")
-		run("touch app.wsgi")
-		code_dir = '/home/neosoft/Demo'
+		v_env_command = 'virtualenv Djangoproject'
+		v_actv_command = 'source Djangoproject/bin/activate'
+		sudo('%s && %s' % (v_env_command, v_actv_command))
+		code_dir = '/Djangoproject/Demo'
 		with cd(code_dir):
+			run("git pull origin master")
+			run("touch app.wsgi")
 			#venv_command = 'source ../bin/activate'
 			pip_command = 'pip install -r requirements.txt'
 			#sudo('%s && %s' % (venv_command, pip_command), user=owner)
