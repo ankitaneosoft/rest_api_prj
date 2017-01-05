@@ -8,7 +8,7 @@ def prepare_deploy():
 
 def deploy():
 	owner = 'root'
-	code_dir = '/home/neosoft/Demo'
+	code_dir = '/Djangoproject/Demo'
 	with settings(warn_only=True):
 		if run("test -d %s" % code_dir).failed:
 			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
