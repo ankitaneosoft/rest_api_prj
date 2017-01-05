@@ -7,7 +7,7 @@ def prepare_deploy():
 
 
 def deploy():
-	owner = 'neosoft'
+	owner = 'root'
 	code_dir = '/home/neosoft/Demo'
 	with settings(warn_only=True):
 		if run("test -d %s" % code_dir).failed:
