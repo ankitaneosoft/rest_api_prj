@@ -12,6 +12,5 @@ def deploy():
         if run("test -d %s" % code_dir).failed:
             run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
     with cd(code_dir):
-    	#run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
         run("git pull origin master")
         run("touch app.wsgi") 
