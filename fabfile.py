@@ -25,7 +25,7 @@ def deploy():
 			#sudo('%s && %s' % (venv_command, pip_command), user=owner)
 			sudo('%s' % pip_command, user=owner)
 			south_command = 'python tutorial/manage.py migrate'
-			run_command = 'python tutorial/manage.py runserver 10.0.30.109:8000'
+			run_command = 'python tutorial/manage.py runserver'
 			sudo('%s && %s' % (south_command, run_command), user=owner)
 			#sudo('%s' % south_command, user=owner) 
 
