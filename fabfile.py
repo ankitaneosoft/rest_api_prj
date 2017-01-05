@@ -21,6 +21,7 @@ def deploy():
 			pip_command = 'pip install -r requirements.txt'
 			#sudo('%s && %s' % (venv_command, pip_command), user=owner)
 			sudo('%s' % pip_command, user=owner)
-			south_command = 'python ./manage.py migrate --all'
-			#sudo('%s && %s' % (venv_command, south_command), user=owner)
-			sudo('%s' % south_command, user=owner) 
+			south_command = 'python tutorial/manage.py migrate --all'
+			run_command = 'python tutorial/manage.py runserver'
+			sudo('%s && %s' % (venv_command, run_command), user=owner)
+			#sudo('%s' % south_command, user=owner) 
