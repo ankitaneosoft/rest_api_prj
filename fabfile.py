@@ -8,19 +8,18 @@ def prepare_deploy():
 
 def deploy():
 	owner = 'root'
-	v_env_command = 'virtualenv Djangoproject'
-	v_actv_command = 'source Djangoproject/bin/activate'
-	code_dir = '/Djangoproject/Demo'
+	code_dir = '/home/neosoft/Demo'
 	with settings(warn_only=True):
 		if run("test -d %s" % code_dir).failed:
 			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
 	with cd(code_dir):
-		sudo('%s && %s' % (v_env_command, v_actv_command),user=owner)
-		code_dir = '/Djangoproject/Demo'
+		run("git pull origin master")
+		run("touch app.wsgi")
+		code_dir = '/home/neosoft/Demo'
 		with cd(code_dir):
-			run("git pull origin master")
-			run("touch app.wsgi")
-			#venv_command = 'source ../bin/activate'
+			v_env_command = 'virtualenv Djangoproject'
+			v_actv_command = 'source Djangoproject/bin/activate'
+			sudo('%s && %s' % (v_env_command, v_actv_command),user=owner)
 			pip_command = 'pip install -r requirements.txt'
 			#sudo('%s && %s' % (venv_command, pip_command), user=owner)
 			sudo('%s' % pip_command, user=owner)
@@ -28,3 +27,5 @@ def deploy():
 			run_command = 'python tutorial/manage.py runserver'
 			sudo('%s && %s' % (south_command, run_command), user=owner)
 			#sudo('%s' % south_command, user=owner) 
+
+
