@@ -1,4 +1,5 @@
-from fabric.api import local, settings, run, cd,sudo
+from fabric.api import local, settings, run, cd,sudo,env
+env.hosts = ['10.0.30.109:8000']
 
 def prepare_deploy():
     local("tutorial/manage.py test quickstart")
