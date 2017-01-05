@@ -1,4 +1,4 @@
-from fabric.api import local, settings, run, cd
+from fabric.api import local, settings, run, cd,sudo
 
 def prepare_deploy():
     local("./manage.py test quickstart")
@@ -7,10 +7,18 @@ def prepare_deploy():
 
 
 def deploy():
-    code_dir = '/home/neosoft/Demo'
-    with settings(warn_only=True):
-        if run("test -d %s" % code_dir).failed:
-            run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
-    with cd(code_dir):
-        run("git pull origin master")
-        run("touch app.wsgi") 
+	owner = 'neosoft'
+	code_dir = '/home/neosoft/Demo'
+	with settings(warn_only=True):
+		if run("test -d %s" % code_dir).failed:
+			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
+	with cd(code_dir):
+		run("git pull origin master")
+		run("touch app.wsgi")
+		#venv_command = 'source ../bin/activate'
+		pip_command = 'pip install -r requirements.txt'
+		#sudo('%s && %s' % (venv_command, pip_command), user=owner)
+		sudo('%s' % pip_command, user=owner)
+		south_command = 'python ./manage.py migrate --all'
+		#sudo('%s && %s' % (venv_command, south_command), user=owner)
+		sudo('%s' % south_command, user=owner) 
