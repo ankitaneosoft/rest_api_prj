@@ -15,10 +15,12 @@ def deploy():
 	with cd(code_dir):
 		run("git pull origin master")
 		run("touch app.wsgi")
-		#venv_command = 'source ../bin/activate'
-		pip_command = 'pip install -r requirements.txt'
-		#sudo('%s && %s' % (venv_command, pip_command), user=owner)
-		sudo('%s' % pip_command, user=owner)
-		south_command = 'python ./manage.py migrate --all'
-		#sudo('%s && %s' % (venv_command, south_command), user=owner)
-		sudo('%s' % south_command, user=owner) 
+		code_dir = '/home/neosoft/Demo'
+		with cd(code_dir):
+			#venv_command = 'source ../bin/activate'
+			pip_command = 'pip install -r requirements.txt'
+			#sudo('%s && %s' % (venv_command, pip_command), user=owner)
+			sudo('%s' % pip_command, user=owner)
+			south_command = 'python ./manage.py migrate --all'
+			#sudo('%s && %s' % (venv_command, south_command), user=owner)
+			sudo('%s' % south_command, user=owner) 
