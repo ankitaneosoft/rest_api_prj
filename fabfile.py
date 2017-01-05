@@ -8,13 +8,13 @@ def prepare_deploy():
 
 def deploy():
 	owner = 'root'
+	v_env_command = 'virtualenv Djangoproject'
+	v_actv_command = 'source Djangoproject/bin/activate'
 	code_dir = '/Djangoproject/Demo'
 	with settings(warn_only=True):
 		if run("test -d %s" % code_dir).failed:
 			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
 	with cd(code_dir):
-		v_env_command = 'virtualenv Djangoproject'
-		v_actv_command = 'source Djangoproject/bin/activate'
 		sudo('%s && %s' % (v_env_command, v_actv_command))
 		code_dir = '/Djangoproject/Demo'
 		with cd(code_dir):
