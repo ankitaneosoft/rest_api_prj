@@ -1,8 +1,9 @@
 from fabric.api import local, settings, run, cd,sudo,env
 #either define this or system will prompt for ip.
+from fabric.network import ssh_config
 
 #env.hosts = ['neosoft@10.0.30.109']
-env.hosts = ['webwerks@10.0.8.104']
+env.hosts = ['webwerks@10.0.8.104','neosoft@10.0.30.109']
 
 
 def prepare_deploy():
@@ -29,7 +30,7 @@ def deploy():
 		sudo('%s' % pip_command, user=owner)
 		south_command = 'python tutorial/manage.py migrate'
 		run("touch app.wsgi")
-		run_command = 'python tutorial/manage.py runserver 10.0.8.104:8000'
+		run_command = 'python tutorial/manage.py runserver'
 		sudo('%s && %s' % (south_command, run_command), user=owner)
 
 
