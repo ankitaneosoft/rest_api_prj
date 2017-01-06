@@ -1,8 +1,8 @@
 from fabric.api import local, settings, run, cd,sudo,env
 #either define this or system will prompt for ip.
 
-#env.hosts = ['10.0.30.109']
-env.hosts = ['webwerks@10.0.8.104']
+env.hosts = ['neosoft@10.0.30.109']
+#env.hosts = ['webwerks@10.0.8.104']
 
 
 def prepare_deploy():
