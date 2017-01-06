@@ -3,7 +3,7 @@ from fabric.api import local, settings, run, cd,sudo,env
 env.hosts = ['10.0.30.109']
 
 def prepare_deploy():
-    local("test quickstart")
+    #local("test quickstart")
     local("git add -A && git commit -m 'deploying changes'")
     local("git push")
 
