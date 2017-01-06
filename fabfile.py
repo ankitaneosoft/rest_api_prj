@@ -3,6 +3,7 @@ from fabric.api import local, settings, run, cd,sudo,env
 from fabric.network import ssh_config
 
 #env.hosts = ['neosoft@10.0.30.109']
+
 env.hosts = ['webwerks@10.0.8.104','neosoft@10.0.30.109']
 
 
