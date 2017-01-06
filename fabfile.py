@@ -1,8 +1,9 @@
 from fabric.api import local, settings, run, cd,sudo,env
+#either define this or system will prompt for ip.
 env.hosts = ['10.0.30.109']
 
 def prepare_deploy():
-    local("tutorial/manage.py test quickstart")
+    local("test quickstart")
     local("git add -A && git commit -m 'deploying changes'")
     local("git push")
 
@@ -22,11 +23,9 @@ def deploy():
 			v_actv_command = 'source Djangoproject/bin/activate'
 			sudo('%s && %s' % (v_env_command, v_actv_command),user=owner)
 			pip_command = 'pip install -r requirements.txt'
-			#sudo('%s && %s' % (venv_command, pip_command), user=owner)
 			sudo('%s' % pip_command, user=owner)
 			south_command = 'python tutorial/manage.py migrate'
-			run_command = 'python tutorial/manage.py runserver'
+			run_command = 'python tutorial/manage.py runserver 10.0.30.109:8000'
 			sudo('%s && %s' % (south_command, run_command), user=owner)
-			#sudo('%s' % south_command, user=owner) 
 
 
