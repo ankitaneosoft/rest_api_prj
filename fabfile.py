@@ -3,7 +3,6 @@ from fabric.api import local, settings, run, cd,sudo,env
 env.hosts = ['10.0.30.109']
 
 def prepare_deploy():
-    #local("test quickstart")
     local("git add -A && git commit -m 'deploying changes'")
     local("git push")
 
@@ -16,16 +15,15 @@ def deploy():
 			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
 	with cd(code_dir):
 		run("git pull origin master")
+		v_env_command = 'virtualenv Djangoproject'
+		v_actv_command = 'source Djangoproject/bin/activate'
+		sudo('%s && %s' % (v_env_command, v_actv_command),user=owner)
+		pip_command = 'pip install -r requirements.txt'
+		sudo('%s' % pip_command, user=owner)
+		south_command = 'python tutorial/manage.py migrate'
 		run("touch app.wsgi")
-		code_dir = '/home/neosoft/Demo'
-		with cd(code_dir):
-			v_env_command = 'virtualenv Djangoproject'
-			v_actv_command = 'source Djangoproject/bin/activate'
-			sudo('%s && %s' % (v_env_command, v_actv_command),user=owner)
-			pip_command = 'pip install -r requirements.txt'
-			sudo('%s' % pip_command, user=owner)
-			south_command = 'python tutorial/manage.py migrate'
-			run_command = 'python tutorial/manage.py runserver 10.0.30.109:8000'
-			sudo('%s && %s' % (south_command, run_command), user=owner)
+		run_command = 'python tutorial/manage.py runserver 10.0.30.109:8000'
+		sudo('%s && %s' % (south_command, run_command), user=owner)
+
 
 
