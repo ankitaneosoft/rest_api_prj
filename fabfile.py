@@ -12,11 +12,13 @@ def prepare_deploy():
 
 def deploy():
 	owner = 'root'
-	code_dir = 'Demo123'
+	code_dir = 'ank_code'
 	with settings(warn_only=True):
 		if run("test -d %s" % code_dir).failed:
-			dir_command = 'mkdir Demo123'
-			sudo('%s' % dir_command, user=owner)
+			dir_command = 'mkdir ' + code_dir
+			chmod_command = 'chmod 777 ' + code_dir
+			sudo('%s && %s' % (dir_command,chmod_command), user=owner)
+			#sudo('%s' % dir_command, user=owner)
 			run("git clone https://github.com/ankitaneosoft/rest_api_prj.git %s" % code_dir)
 	with cd(code_dir):
 		run("git pull origin master")
