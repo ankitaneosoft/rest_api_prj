@@ -11,8 +11,7 @@ def prepare_deploy():
 
 
 def deploy():
-	#owner = 'root'
-	owner = 'webwerks'
+	owner = 'root'
 	code_dir = '/home/Demo'
 	with settings(warn_only=True):
 		if run("test -d %s" % code_dir).failed:
